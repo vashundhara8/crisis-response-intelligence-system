@@ -1,0 +1,222 @@
+[
+  {
+    "resource_code": "AMB-01",
+    "resource_type": "Ambulance",
+    "name": "Advanced Life Support Unit A-01",
+    "latitude": 13.0950,
+    "longitude": 77.5920,
+    "capacity": 4,
+    "availability_status": "AVAILABLE",
+    "current_location": "Yelahanka General Hospital Base"
+  },
+  {
+    "resource_code": "AMB-02",
+    "resource_type": "Ambulance",
+    "name": "Rapid Response Ambulance A-02",
+    "latitude": 13.0300,
+    "longitude": 77.5900,
+    "capacity": 3,
+    "availability_status": "AVAILABLE",
+    "current_location": "Hebbal Trauma Depot"
+  },
+  {
+    "resource_code": "AMB-03",
+    "resource_type": "Ambulance",
+    "name": "Paramedic Transit Unit A-03",
+    "latitude": 12.9900,
+    "longitude": 77.5500,
+    "capacity": 2,
+    "availability_status": "AVAILABLE",
+    "current_location": "Rajajinagar ESI Hospital Post"
+  },
+  {
+    "resource_code": "AMB-04",
+    "resource_type": "Ambulance",
+    "name": "Critical Care Transport A-04",
+    "latitude": 12.9320,
+    "longitude": 77.5800,
+    "capacity": 4,
+    "availability_status": "AVAILABLE",
+    "current_location": "Jayanagar District Hospital"
+  },
+  {
+    "resource_code": "AMB-05",
+    "resource_type": "Ambulance",
+    "name": "Basic Life Support Ambulance A-05",
+    "latitude": 12.9700,
+    "longitude": 77.7400,
+    "capacity": 3,
+    "availability_status": "AVAILABLE",
+    "current_location": "Whitefield Medical Hub"
+  },
+  {
+    "resource_code": "RES-01",
+    "resource_type": "Rescue Team",
+    "name": "Heavy Urban Search & Rescue Team R-01",
+    "latitude": 13.0800,
+    "longitude": 77.5900,
+    "capacity": 30,
+    "availability_status": "AVAILABLE",
+    "current_location": "North Fire & Disaster HQ, Yelahanka"
+  },
+  {
+    "resource_code": "RES-02",
+    "resource_type": "Rescue Team",
+    "name": "Flood Extraction Squad R-02",
+    "latitude": 13.0250,
+    "longitude": 77.5850,
+    "capacity": 40,
+    "availability_status": "AVAILABLE",
+    "current_location": "Hebbal Lake SDRF Station"
+  },
+  {
+    "resource_code": "RES-03",
+    "resource_type": "Rescue Team",
+    "name": "Industrial Hazard & Rescue Squad R-03",
+    "latitude": 13.0200,
+    "longitude": 77.5150,
+    "capacity": 25,
+    "availability_status": "AVAILABLE",
+    "current_location": "Peenya Fire Command Station"
+  },
+  {
+    "resource_code": "RES-04",
+    "resource_type": "Rescue Team",
+    "name": "Rapid Structural Intervention Team R-04",
+    "latitude": 12.9750,
+    "longitude": 77.5650,
+    "capacity": 20,
+    "availability_status": "AVAILABLE",
+    "current_location": "Central Fire Station, Majestic"
+  },
+  {
+    "resource_code": "RES-05",
+    "resource_type": "Rescue Team",
+    "name": "Eastern Sector Disaster Taskforce R-05",
+    "latitude": 12.9750,
+    "longitude": 77.6400,
+    "capacity": 25,
+    "availability_status": "AVAILABLE",
+    "current_location": "Indiranagar Emergency Station"
+  },
+  {
+    "resource_code": "MED-01",
+    "resource_type": "Medical Unit",
+    "name": "Mobile Triage Field Hospital M-01",
+    "latitude": 13.0380,
+    "longitude": 77.5880,
+    "capacity": 50,
+    "availability_status": "AVAILABLE",
+    "current_location": "Hebbal Ring Road Staging Depot"
+  },
+  {
+    "resource_code": "MED-02",
+    "resource_type": "Medical Unit",
+    "name": "Trauma & Hazmat Decon Unit M-02",
+    "latitude": 13.0250,
+    "longitude": 77.5220,
+    "capacity": 35,
+    "availability_status": "AVAILABLE",
+    "current_location": "Peenya Industrial Clinic Hub"
+  },
+  {
+    "resource_code": "MED-03",
+    "resource_type": "Medical Unit",
+    "name": "Rapid Outpatient Mobile Clinic M-03",
+    "latitude": 12.9350,
+    "longitude": 77.5850,
+    "capacity": 30,
+    "availability_status": "AVAILABLE",
+    "current_location": "Jayanagar Triage Base"
+  },
+  {
+    "resource_code": "MED-04",
+    "resource_type": "Medical Unit",
+    "name": "Emergency Pediatric & Adult Unit M-04",
+    "latitude": 12.9710,
+    "longitude": 77.7450,
+    "capacity": 40,
+    "availability_status": "AVAILABLE",
+    "current_location": "Whitefield Specialty Wing"
+  },
+  {
+    "resource_code": "MED-05",
+    "resource_type": "Medical Unit",
+    "name": "Metropolitan Critical Response Unit M-05",
+    "latitude": 12.9400,
+    "longitude": 77.6200,
+    "capacity": 30,
+    "availability_status": "AVAILABLE",
+    "current_location": "Koramangala Community Health Center"
+  },
+  {
+    "resource_code": "FRU-01",
+    "resource_type": "Fire and Rescue Unit",
+    "name": "Heavy Foam & Hazmat Tender FR-01",
+    "latitude": 13.0240,
+    "longitude": 77.5210,
+    "capacity": 35,
+    "availability_status": "AVAILABLE",
+    "current_location": "Peenya Fire & Emergency Depot"
+  },
+  {
+    "resource_code": "FRU-02",
+    "resource_type": "Fire and Rescue Unit",
+    "name": "High-Rise Aerial Ladder Unit FR-02",
+    "latitude": 12.9950,
+    "longitude": 77.5560,
+    "capacity": 30,
+    "availability_status": "AVAILABLE",
+    "current_location": "Rajajinagar Fire Brigade HQ"
+  },
+  {
+    "resource_code": "SUP-01",
+    "resource_type": "Emergency Supply Unit",
+    "name": "Mobile Water, Food & Trauma Kit Convoy S-01",
+    "latitude": 13.0400,
+    "longitude": 77.5920,
+    "capacity": 150,
+    "availability_status": "AVAILABLE",
+    "current_location": "Hebbal Civil Defence Logistics Yard"
+  },
+  {
+    "resource_code": "SUP-02",
+    "resource_type": "Emergency Supply Unit",
+    "name": "Power & Relief Logistics Truck S-02",
+    "latitude": 12.9680,
+    "longitude": 77.6300,
+    "capacity": 120,
+    "availability_status": "AVAILABLE",
+    "current_location": "Indiranagar Relief Warehouse"
+  },
+  {
+    "resource_code": "SHL-01",
+    "resource_type": "Shelter",
+    "name": "North Bengaluru Relief Shelter S-01",
+    "latitude": 13.0900,
+    "longitude": 77.5800,
+    "capacity": 250,
+    "availability_status": "AVAILABLE",
+    "current_location": "Yelahanka Indoor Stadium"
+  },
+  {
+    "resource_code": "SHL-02",
+    "resource_type": "Shelter",
+    "name": "Hebbal Municipal Community Shelter S-02",
+    "latitude": 13.0320,
+    "longitude": 77.6000,
+    "capacity": 200,
+    "availability_status": "AVAILABLE",
+    "current_location": "Hebbal Convention Complex"
+  },
+  {
+    "resource_code": "SHL-03",
+    "resource_type": "Shelter",
+    "name": "South Bengaluru Emergency Evacuation Center S-03",
+    "latitude": 12.9250,
+    "longitude": 77.5800,
+    "capacity": 350,
+    "availability_status": "AVAILABLE",
+    "current_location": "Jayanagar National College Grounds"
+  }
+]

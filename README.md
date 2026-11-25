@@ -1,122 +1,151 @@
-# Crisis Response Intelligence System
+# Crisis Response Intelligence System (CRIS)
 
-### Data-Driven Emergency Resource Allocation & Response Prioritization
+### Government-Grade Emergency Decision-Support & Resource Allocation Platform
 
-A decision-support system for prioritizing multiple simultaneous emergency incidents and recommending the allocation of limited emergency resources using crisis conditions, geospatial information, environmental data, and resource constraints.
-
----
-
-##  Overview
-
-During large-scale emergencies, multiple incidents can occur simultaneously while response agencies operate with limited ambulances, rescue teams, medical resources, shelters, and response time.
-
-The **Crisis Response Intelligence System (CRIS)** is designed to address the decision-making layer of emergency response:
-
-- Which incident requires immediate attention?
-- Which available resource should be deployed first?
-- How should changing severity, impact, urgency, vulnerability, and accessibility affect incident priority?
-- How can limited resources be allocated while considering availability, capacity, compatibility, and travel time?
-
-The system combines heterogeneous crisis information into an interpretable workflow:
-
-**DATA → PROCESS → PRIORITIZE → ALLOCATE → VISUALIZE**
-
->  This is an academic decision-support prototype. The system is not intended to autonomously control emergency operations. Final decisions remain subject to review by authorized emergency-response personnel.
+A full-stack, database-backed **Crisis Response Intelligence System (CRIS)** built with **React, TypeScript, FastAPI, PostgreSQL/PostGIS, SQLAlchemy, Alembic, Pandas, NumPy, Recharts, and Leaflet** to support emergency coordinators when multiple simultaneous incidents occur under constrained resource availability.
 
 ---
 
-# Objectives
-
-The project aims to:
-
-- Collect and integrate emergency, environmental, demographic, and geospatial data.
-- Process and validate heterogeneous datasets.
-- Generate meaningful incident-level features.
-- Estimate hazard/risk where machine learning is applicable.
-- Calculate a dynamic and explainable priority score.
-- Rank simultaneous incidents according to response priority.
-- Match available emergency resources with prioritized incidents.
-- Consider resource compatibility, availability, capacity, distance, and accessibility.
-- Provide an interactive command dashboard for emergency-response decision support.
+> **ACADEMIC DECISION-SUPPORT DISCLAIMER**
+>
+> CRIS is an academic **decision-support prototype** (BCA semester project) using simulated Bengaluru emergency data. It is **not** a medically validated triage system and does **not** autonomously dispatch real emergency vehicles. Human emergency coordinators retain final decision-making authority.
 
 ---
 
-# Problem Statement
+## Problem Statement
 
-Emergency agencies may face multiple simultaneous incidents while operating under limited resources.
+When multiple simultaneous emergencies occur across a metropolitan region, emergency operations centres face severe resource constraints across ambulances, rescue squads, medical units, fire units, emergency supplies, and shelters. Manual triage and ad-hoc dispatch make it difficult to determine which incident requires attention first, which available asset is geographically and operationally compatible, and how fleet shortages affect response coverage.
 
-Traditional systems can provide useful capabilities such as:
+## Project Objectives
 
-- Monitoring
-- GIS mapping
-- Routing
-- Risk assessment
-- Prediction
-- Optimization
-
-However, these capabilities do not necessarily answer the combined operational question:
-
-> **"Given multiple active incidents and limited resources, which incident should be handled first and which resource should be assigned?"**
-
-CRIS focuses on this decision layer by combining incident conditions with resource constraints to generate dynamic priorities and allocation recommendations.
+1. **Prioritize Simultaneous Incidents Transparently**: Score and classify concurrent incidents (0–100 scale: `CRITICAL`, `HIGH`, `MODERATE`, `LOW`) using configurable weights across severity, population impact, urgency, vulnerability, and accessibility.
+2. **Recommend Compatible Resources Explainably**: Evaluate available fleet units by Haversine proximity, ingress accessibility penalty, hazard compatibility, and capacity fit while keeping final dispatch authority with human coordinators.
+3. **Simulate Resource Shortages Safely**: Allow coordinators to test fleet capacity deficits and unit outages in memory without altering live operational database records.
+4. **Enforce Security & Operational Accountability**: Protect all endpoints with JWT authentication, bcrypt password hashing, Role-Based Access Control (RBAC), automated alerts, and immutable audit logs.
 
 ---
 
-# Proposed Solution
+## Core Capabilities & Features
 
-The proposed system combines:
+- **JWT Authentication & Role-Based Access Control (RBAC)**:
+  - Roles: `Administrator`, `Emergency Coordinator`, `Resource Manager`, `Viewer`.
+  - Bcrypt password hashing, JWT Bearer tokens, protected frontend routes, and backend RBAC enforcement.
+- **Command Dashboard**:
+  - Live database-backed metrics: Active Incidents, Critical Incidents, High-Priority Incidents, Available Ambulances, Available Rescue Teams, Available Medical Units, Deployed Resources, and Pending Resource Requests.
+  - Interactive Tactical Map, Priority Queue, Recommended Dispatch Actions, Recent Alerts, and Recharts analytics.
+- **Complete Incident Lifecycle Management**:
+  - Create, View, Edit, Filter, Search, Sort by Priority, and Delete with confirmation.
+  - Tracks `title`, `injuries`, `casualties`, `people_affected`, coordinates, 5 priority factors, and statuses (`Reported`, `Under Assessment`, `Active`, `Resources Assigned`, `Resolved`, `Closed`).
+- **Intelligent Configurable Priority Engine**:
+  - Weighted 0–100 scoring formula (`CRITICAL` 80–100, `HIGH` 60–79, `MODERATE` 40–59, `LOW` 0–39) with database-persisted configurable weights, factor breakdown, natural-language explanation, `PriorityScore` snapshots, and recalculation timestamps.
+- **Emergency Fleet & Resource Management**:
+  - Supports 6 resource categories (`Ambulance`, `Rescue Team`, `Medical Unit`, `Fire and Rescue Unit`, `Emergency Supply Unit`, `Shelter`) and 5 operational states (`Available`, `Assigned`, `Deployed`, `Unavailable`, `Under Maintenance`).
+  - Full Add, Edit, Delete, Detail Dossier, Deployed view, and assigned-incident tracking.
+- **Resource Allocation Engine**:
+  - Ranks candidates using Haversine proximity, ingress accessibility penalty, hazard-type compatibility, capacity fit, and availability.
+  - Prevents unavailable or duplicate assignments; supports coordinator **Accept**, **Reject**, **Manual Override**, and **Release / Reassign** with full allocation history.
+- **What-If Resource Shortage Simulation**:
+  - Isolated in-memory simulation allowing coordinators to adjust available fleet counts, simulate unit outages, view shortage warnings, and identify uncovered incidents without modifying live database records.
+- **Operational Analytics, CSV Export, Alerts & Audit Logs**:
+  - Date and incident-type filtered Recharts analytics, CSV export (`/api/analytics/export-csv`), automated operational alerts, and immutable audit logs.
 
-- Incident severity
-- Affected population / impact
-- Urgency
-- Vulnerability
-- Accessibility
-- Resource availability
+---
 
-These inputs are processed by a **Dynamic Priority Engine**, followed by a **Resource Allocation Engine**, and finally presented through an **Emergency Response Dashboard**.
+## System Architecture
 
-### High-Level Workflow
+```
+React 18 + TypeScript + Vite (Hybrid Navy Sidebar + Light Canvas UI)
+   ├── Protected Routes + JWT AuthContext (Login / RBAC)
+   ├── Command Dashboard, Incidents, Priority Lab, Fleet, Allocation
+   ├── Tactical Map (React-Leaflet + OpenStreetMap)
+   └── What-If Simulation, Analytics + CSV Export, Alerts & Audit Logs
+                          │  REST API (/api/*, Bearer JWT)
+                          ▼
+FastAPI Backend (Python + Pydantic v2)
+   ├── Auth & RBAC (bcrypt + python-jose JWT)
+   ├── Priority Engine & Allocation Engine & Simulation Engine
+   ├── Pandas / NumPy Validation & Analytics & CSV Service
+   └── Alert Synchronization & Audit Logging Services
+                          │  SQLAlchemy 2.0 + Alembic Migrations
+                          ▼
+PostgreSQL 16 + PostGIS (Primary) / SQLite (Local Fallback)
+```
 
-```text
-                    ┌──────────────────────┐
-                    │   External Data      │
-                    │ Weather / GIS /      │
-                    │ Population / etc.    │
-                    └──────────┬───────────┘
-                               │
-                               ▼
-                    ┌──────────────────────┐
-                    │ Crisis Data Ingestion│
-                    └──────────┬───────────┘
-                               │
-                               ▼
-                    ┌──────────────────────┐
-                    │ Data Processing &    │
-                    │ Validation            │
-                    └──────────┬───────────┘
-                               │
-                    ┌──────────┴───────────┐
-                    ▼                      ▼
-          ┌─────────────────┐    ┌─────────────────┐
-          │ Hazard / Risk   │    │ Incident &      │
-          │ Prediction      │    │ Resource Data   │
-          │ ML Component    │    │                 │
-          └────────┬────────┘    └────────┬────────┘
-                   │                      │
-                   └──────────┬───────────┘
-                              ▼
-                   ┌──────────────────────┐
-                   │ Dynamic Priority     │
-                   │ Engine               │
-                   └──────────┬───────────┘
-                              │
-                              ▼
-                   ┌──────────────────────┐
-                   │ Resource Allocation  │
-                   │ Engine               │
-                   └──────────┬───────────┘
-                              │
-                              ▼
-                   ┌──────────────────────┐
-                   │ Command Dashboard    │
-                   └──────────────────────┘
+---
+
+## Technology Stack
+
+- **Frontend**: React 18, TypeScript, Vite, React Router v6, Axios, Lucide React, Recharts, Leaflet, React-Leaflet, OpenStreetMap.
+- **Backend**: Python, FastAPI, Uvicorn, Pydantic v2, SQLAlchemy 2.0, Alembic, GeoAlchemy2, bcrypt, python-jose, Pandas, NumPy.
+- **Database**: PostgreSQL 16 + PostGIS (primary via Docker/env) with automatic SQLite fallback for local development and Pytest.
+- **Testing & DevOps**: Pytest, FastAPI TestClient, Docker, Docker Compose, Git/GitHub.
+
+---
+
+## Environment Setup & Installation
+
+### 1. Configure Environment Variables
+Copy `.env.example` to `.env` (never commit `.env`):
+```bash
+cp .env.example .env
+```
+Set `JWT_SECRET_KEY`, `DATABASE_URL`, and optionally `DEMO_SEED_PASSWORD` for initial local demo accounts.
+
+### 2. Backend Setup & Alembic Migrations
+```bash
+cd backend
+python -m pip install -r requirements.txt
+alembic upgrade head
+uvicorn app.main:app --reload --port 8000
+```
+- API Base URL: `http://127.0.0.1:8000/api`
+- Interactive Swagger Docs: `http://127.0.0.1:8000/docs`
+
+### 3. Frontend Setup
+```bash
+cd frontend
+npm install
+npm run dev
+```
+- Frontend URL: `http://localhost:5173`
+- On first launch without `DEMO_SEED_PASSWORD`, the login screen automatically offers **Bootstrap Admin** to create the first `Administrator` account.
+
+### 4. Docker Deployment (PostgreSQL + PostGIS + Backend + Frontend)
+```bash
+docker compose up --build
+```
+
+---
+
+## Testing & Verification
+
+```bash
+# Backend unit, auth/RBAC, engine, simulation, and API integration tests
+python -m pytest backend/tests -v
+
+# Frontend TypeScript check and Vite production build
+cd frontend && npm run build
+```
+
+---
+
+## API Overview
+
+See [docs/api.md](docs/api.md) for full endpoint documentation covering `/api/auth/*`, `/api/dashboard/*`, `/api/incidents/*`, `/api/resources/*`, `/api/allocation/*`, `/api/priority/*`, `/api/simulation/run`, `/api/analytics/*`, `/api/alerts/*`, and `/api/audit-logs`.
+
+---
+
+## Three-Member BCA Team Responsibilities
+
+| Member | Primary Ownership | Modules & Deliverables |
+|---|---|---|
+| **Member 1 — Backend Architect & Intelligence Lead** | FastAPI core, Priority Engine, Allocation Engine, Simulation Engine | `backend/app/engines/`, `backend/app/services/`, `backend/app/api/`, Pytest suite |
+| **Member 2 — Database & Security Engineer** | PostgreSQL/PostGIS schema, Alembic migrations, JWT Auth & RBAC, Audit Logs | `backend/alembic/`, `database/migrations/init.sql`, `backend/app/core/security.py`, `backend/app/models/` |
+| **Member 3 — Frontend UI/UX & GIS Lead** | React + TypeScript Command UI, Leaflet Map, Recharts Analytics, Docker/Docs | `frontend/src/pages/`, `frontend/src/components/`, `frontend/src/map/`, `frontend/src/charts/`, `docs/` |
+
+## Team Collaboration Instructions
+
+1. **Branching & Pull Requests**: Create feature branches from `main` (e.g., `feature/priority-tuning`, `fix/map-filters`) and open pull requests before merging.
+2. **Environment Safety**: Never commit `.env`, database binaries (`*.db`), or credentials. Use `.env.example` as the shared template.
+3. **Database Schema Changes**: Add incremental Alembic revisions in `backend/alembic/versions/` (`render_as_batch=True` preserves SQLite compatibility alongside PostgreSQL + PostGIS).
+4. **Pre-Push Verification**: Run `python -m pytest backend/tests -v` and `cd frontend && npm run build` before pushing changes.
